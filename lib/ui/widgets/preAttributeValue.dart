@@ -4,9 +4,11 @@ import 'package:decidable/ui/widgets/importanceCircle.dart';
 import 'package:flutter/material.dart';
 
 class PrevAttributeValue extends StatelessWidget {
-  
-  final Attribute attr;
-  PrevAttributeValue(this.attr);
+  final Attribute attribute;
+  final TextEditingController valueCtrl;
+
+  final Function afterCopyFun;
+  PrevAttributeValue({this.attribute, this.valueCtrl, this.afterCopyFun});
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +34,26 @@ class PrevAttributeValue extends StatelessWidget {
           Expanded(
               flex: 10,
               child: Text(
-                attr.value,
+                attribute.value,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 16),
               )),
           Expanded(
             flex: 1,
-            child: Icon(
-              Icons.swap_vert,
-              color: MyColor.primaryColor(),
-            ),
+            child: IconButton(
+                icon: Icon(
+                  Icons.copy,
+                  color: MyColor.primaryColor(),
+                ),
+                onPressed: () {
+                  valueCtrl.text = attribute.value;
+                  afterCopyFun();
+                },),
           ),
           Expanded(
-              flex: 1,
-              child: imporatnceCircle(attr.importance),
-              ),
+            flex: 1,
+            child: imporatnceCircle(attribute.valueImportance),
+          ),
         ],
       ),
     );

@@ -49,6 +49,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
                             ),
                             Text(
                                 primaryTitle,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 22,
@@ -79,6 +80,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
                   padding: EdgeInsets.only(left: 10),
                   height: 50,
                   onPressed: goTo,
+                  disabledColor: MyColor.creamyColor2(),
+                  disabledTextColor: MyColor.secondColorOp(0.7),
+                  disabledElevation: 5,
                   elevation: 5,
                   color: MyColor.primaryColor(),
                   child: Row(

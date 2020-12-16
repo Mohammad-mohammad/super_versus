@@ -11,6 +11,7 @@ class FieldTitle extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         title,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );

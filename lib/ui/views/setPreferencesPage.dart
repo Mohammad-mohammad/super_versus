@@ -1,8 +1,8 @@
+import 'package:decidable/core/models/vs.dart';
 import 'package:decidable/ui/shared/SlideLeftRoute.dart';
 import 'package:decidable/ui/shared/customTrackShape.dart';
 import 'package:decidable/ui/shared/dialogs.dart';
 import 'package:decidable/ui/shared/myColor.dart';
-import 'package:decidable/ui/shared/preferences.dart';
 import 'package:decidable/ui/views/resultPage.dart';
 import 'package:decidable/ui/widgets/customAppBar.dart';
 import 'package:decidable/ui/widgets/customSliderThumbCircle%20.dart';
@@ -15,18 +15,15 @@ class SetPreferencesPage extends StatefulWidget {
 
 
 class _SetPreferencesStatePage extends State<SetPreferencesPage> {
-  final List<Preferences> pref= [
-    Preferences(name: "Attribute #1", value: 20), 
-    Preferences(name: "Attribute #2", value: 50), 
-    Preferences(name: "Attribute #3", value: 90), 
-    Preferences(name: "Attribute #4", value: 10), 
-    Preferences(name: "Attribute #5", value: 70), 
-    Preferences(name: "Attribute #6", value: 10), 
-    Preferences(name: "Attribute #7", value: 30), 
-  ];
+  List<Attribute> attrs;
 
+  @override
+  void initState() {
+    attrs =  Vs.getAllAttributes();    
+    super.initState();
+  }
   void goto(){
-    Navigator.pushReplacement(context, SlideleftRoute(page: ResultPage()));
+     Navigator.pushReplacement(context, SlideleftRoute(page: ResultPage()));
   }
   void goBack(){
     Dialogs.showConfirmDialog(context);
@@ -70,7 +67,7 @@ class _SetPreferencesStatePage extends State<SetPreferencesPage> {
                               ),
                             ),
                           ),  
-                          ...pref.map((elem) {
+                          ...attrs.map((elem) {
                             return Column(
                               children: [
                                 Container(
@@ -105,10 +102,10 @@ class _SetPreferencesStatePage extends State<SetPreferencesPage> {
                               child: Slider(
                                 min: 0,
                                 max: 100,
-                                value: elem.value,
+                                value: elem.attrImportance,
                                 onChanged: (value) {
                                   setState(() { 
-                                    elem.setValue(value);
+                                    elem.attrImportance = value;
                                   });
                                 },
                               ),

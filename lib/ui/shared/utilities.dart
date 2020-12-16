@@ -1,9 +1,5 @@
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 class Utilities{  
-
+  static int maxValidTextLength = 2;
   static String getOrdinalNumber(int number){
     String result = "Nan";
     int restOfMod= number%10;

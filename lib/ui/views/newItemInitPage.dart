@@ -3,6 +3,7 @@ import 'package:decidable/ui/shared/SlideLeftRoute.dart';
 import 'package:decidable/ui/shared/dialogs.dart';
 import 'package:decidable/ui/shared/myColor.dart';
 import 'package:decidable/ui/shared/textFieldBorder.dart';
+import 'package:decidable/ui/shared/utilities.dart';
 import 'package:decidable/ui/views/newAttributeTextualPage.dart';
 import 'package:decidable/ui/widgets/customAppBar.dart';
 import 'package:decidable/ui/widgets/fieldTitle.dart';
@@ -17,8 +18,11 @@ class NewItemInitPage extends StatefulWidget {
 class _NewItemInitPageState extends State<NewItemInitPage> {
   final itemNameController = new TextEditingController();  
 
+  Function startBtnFun;
+
   @override
   void initState() {
+    startBtnFun = null;
     super.initState();    
   }
 
@@ -49,7 +53,7 @@ class _NewItemInitPageState extends State<NewItemInitPage> {
       secondTitle: Vs.getTextualItemNumber(),
       buttonText: "Start",
       buttonIcon: Icon(Icons.add),
-      goTo: goto,
+      goTo: startBtnFun,
       goBack: goBack,
           ),
           body: Container(
@@ -74,6 +78,17 @@ class _NewItemInitPageState extends State<NewItemInitPage> {
                         child: TextField(
                           decoration: TextFieldBorder(),
                           controller: itemNameController,
+                          onChanged: (value) {
+                            if(value.trim().length < Utilities.maxValidTextLength){
+                              setState(() {
+                                startBtnFun = null;
+                              });
+                            }else{
+                              setState(() {
+                                startBtnFun = goto;
+                              });
+                            }
+                          },
                         ),
                       ),
                       SizedBox(

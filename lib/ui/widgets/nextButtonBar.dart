@@ -2,22 +2,23 @@ import 'package:decidable/ui/shared/myColor.dart';
 import 'package:flutter/material.dart';
 
 class NextButtonnBar extends StatelessWidget {
-  final Function _function;
-  NextButtonnBar(this._function);
+  final String btnName;
+  final Function function;
+  NextButtonnBar({this.function, this.btnName="Next"});
   
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
       child: MaterialButton(
-          onPressed: _function,
+          onPressed: function,
           elevation: 5,
           color: MyColor.creamyColor(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "Next",
+                btnName,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               Icon(
