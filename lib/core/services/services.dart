@@ -5,7 +5,7 @@ class Services {
   static Future<List<Product>> search(String query) async {
     //await Future.delayed(Duration(seconds: 2));   
     List<Product> list=[];
-    if(query==null || query.length==0){
+    if(query.isEmpty){
       return list;
     }
     Product p1= Product(name: "Samsung Galaxy M31 Prime", id: "1");

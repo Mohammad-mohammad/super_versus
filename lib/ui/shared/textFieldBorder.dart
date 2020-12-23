@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 class TextFieldBorder extends InputDecoration {
   
-  TextFieldBorder({prefixIcon, hintText}):
-    super(hintText: hintText, prefixIcon: prefixIcon);
+  TextFieldBorder({prefixIcon, hintText, suffixIcon}):
+    super(hintText: hintText, prefixIcon: prefixIcon, suffixIcon: suffixIcon);
   
   final contentPadding= EdgeInsets.all(10.0);
     

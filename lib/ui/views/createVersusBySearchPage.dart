@@ -6,11 +6,12 @@ import 'package:decidable/ui/shared/SlideLeftRoute.dart';
 import 'package:decidable/ui/shared/myColor.dart';
 import 'package:decidable/ui/shared/textFieldBorder.dart';
 import 'package:decidable/ui/views/setPreferencesPage.dart';
-import 'package:decidable/ui/widgets/customAppBar.dart';
 import 'package:decidable/ui/widgets/searchResultAddedItem.dart';
 import 'package:decidable/ui/widgets/searchResultItem.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+int headerHeight = 80;
 
 class Debouncer {
   final int milliseconds;
@@ -36,17 +37,19 @@ class CreateVersusBySearchPage extends StatefulWidget {
 class _CreateVersusBySearchPageState extends State<CreateVersusBySearchPage>
     with TickerProviderStateMixin {
   PanelController _pc = new PanelController();
+  TextEditingController _textFieldCtrl = new TextEditingController();
   IconData headerIcon = Icons.keyboard_arrow_up;
   final _debouncer = Debouncer(milliseconds: 500);
   List<Product> filteredProducts = List();
   List<Product> comparedProducts = List();
   
 
-  int headerHeight = 120;
+
   int panelHeaderheight = 47;
   int textFeildHeight = 50;
 
   bool isLoading = false;
+  String queryText;
   AnimationController _controller;
 
   @override
@@ -97,9 +100,8 @@ class _CreateVersusBySearchPageState extends State<CreateVersusBySearchPage>
         return true;
       },
       child: Scaffold(
-        appBar: CustomAppBar(
-          primaryTitle: "Create",
-          secondTitle: "Find and compare",
+        appBar: MiniCustomAppBar(
+          primaryTitle: "Find & Compare",
           buttonText: "Go",
           buttonIcon: Icon(Icons.check),
           goTo: goto,
@@ -134,13 +136,26 @@ class _CreateVersusBySearchPageState extends State<CreateVersusBySearchPage>
             padding: EdgeInsets.all(10),
             child: Column(
               children: [
-               TextField(
+               TextField(     
+                  controller: _textFieldCtrl,             
                   decoration: TextFieldBorder(
                     hintText: 'Search',
                     prefixIcon: Icon(Icons.search),
+                    suffixIcon: IconButton(
+                        onPressed:() {
+                          setState(() {
+                            _textFieldCtrl.clear();
+                            queryText= "";
+                            filteredProducts.clear();
+                          });
+                          
+                        },
+                        icon: Icon(Icons.clear),
+                    ),
                   ),
                   onChanged: (query) async {
                     setState(() {
+                      queryText = query;
                       isLoading = true;
                     });
                     _debouncer.run(() {
@@ -181,6 +196,7 @@ class _CreateVersusBySearchPageState extends State<CreateVersusBySearchPage>
                                 product: filteredProducts[index],
                                 function: () =>
                                     addToCompare(filteredProducts[index]),
+                                query: queryText,
                               );
                             }),
                       ),
@@ -275,4 +291,103 @@ Widget _counter(double radius, String text) {
             style: TextStyle(
                 color: MyColor.primaryColor(), fontWeight: FontWeight.bold))),
   );
+}
+
+
+class MiniCustomAppBar extends StatelessWidget implements PreferredSizeWidget{
+  final String primaryTitle;
+
+  final String buttonText;
+  final Icon buttonIcon;
+  final Function goTo;
+  final Function goBack;
+  final double _height = headerHeight.toDouble();
+
+  MiniCustomAppBar({@required this.primaryTitle, this.buttonText, this.buttonIcon, this.goTo, this.goBack});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: MyColor.creamyColor(),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 2.0,
+              spreadRadius: 0.0,
+              offset: Offset(2.0, 2.0), // shadow direction: bottom right
+            )
+          ],
+        ),
+        margin: EdgeInsets.only(bottom: 10.0),
+        height: _height,
+        child: Row(
+          children: [
+            Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.arrow_back),
+                              color: MyColor.secondColor(),
+                              onPressed: goBack,                              
+                            ),
+                            Text(
+                                primaryTitle,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: MyColor.secondColor()),
+                              ),
+                          ],
+                        ),
+                      ),
+                      
+                    ],
+                  ),
+                )),
+                if(buttonText!=null)
+            Expanded(
+              flex: 2,
+              child: MaterialButton(
+                  padding: EdgeInsets.only(left: 10),
+                  height: 50,
+                  onPressed: goTo,
+                  disabledColor: MyColor.creamyColor2(),
+                  disabledTextColor: MyColor.secondColorOp(0.7),
+                  disabledElevation: 5,
+                  elevation: 5,
+                  color: MyColor.primaryColor(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(buttonText),
+                      buttonIcon,
+                    ],
+                  ),
+                  textColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10.0),
+                        topLeft: Radius.circular(10.0)),
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override  
+  Size get preferredSize => Size(double.infinity, _height);
 }
