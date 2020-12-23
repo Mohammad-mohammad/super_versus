@@ -1,5 +1,6 @@
 import 'package:decidable/ui/shared/SlideLeftRoute.dart';
 import 'package:decidable/ui/views/loginPage.dart';
+import 'package:decidable/ui/views/onBoradingPage.dart';
 import 'package:decidable/ui/views/registerPage.dart';
 import 'package:decidable/ui/widgets/avatar.dart';
 import 'package:decidable/ui/shared/myColor.dart';
@@ -101,6 +102,14 @@ class CustomDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, SlideleftRoute(page: LoginPage()));
+              },
+            ),
+            ListTile(              
+              leading: Icon(Icons.logout, color: Colors.white),
+              title: Text('OnBoarding', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, SlideleftRoute(page: OnBoradingPage()));
               },
             ),
           ],
