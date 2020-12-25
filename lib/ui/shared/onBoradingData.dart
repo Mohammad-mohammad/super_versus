@@ -41,24 +41,24 @@ List<SliderModel> getSlides(){
   SliderModel sliderModel = new SliderModel();
 
   //1
-  sliderModel.setDesc("Discover Restaurants offering the best fast food food near you on Foodwa");
-  sliderModel.setTitle("Search");
+  sliderModel.setDesc("A flexible and friendly user interface that allows you to build your own comparison between items with the ability to define the attributes you want.");
+  sliderModel.setTitle("Build your own compare");
   sliderModel.setImageAssetPath("assets/images/illustration.png");
   slides.add(sliderModel);
 
   sliderModel = new SliderModel();
 
   //2
-  sliderModel.setDesc("Our veggie plan is filled with delicious seasonal vegetables, whole grains, beautiful cheeses and vegetarian proteins");
-  sliderModel.setTitle("Order");
+  sliderModel.setDesc("The app comes with data that contain items that are widely known.");
+  sliderModel.setTitle("Find and Compare common items");
   sliderModel.setImageAssetPath("assets/images/illustration2.png");
   slides.add(sliderModel);
 
   sliderModel = new SliderModel();
 
   //3
-  sliderModel.setDesc("Food delivery or pickup from local restaurants, Explore restaurants that deliver near you.");
-  sliderModel.setTitle("Eat");
+  sliderModel.setDesc("Attributes and values have weights. As a result, every item will have points that help you to make a decision.");
+  sliderModel.setTitle("Help you to decide");
   sliderModel.setImageAssetPath("assets/images/illustration3.png");
   slides.add(sliderModel);
 

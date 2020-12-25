@@ -200,7 +200,6 @@ class ItemSearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     throw UnimplementedError();
   }
 

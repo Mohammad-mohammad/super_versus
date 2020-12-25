@@ -2,7 +2,6 @@ import 'package:decidable/core/viewmodels/versus_model.dart';
 import 'package:decidable/provider_setup.dart';
 import 'package:decidable/ui/shared/myColor.dart';
 import 'package:decidable/ui/views/base_widget.dart';
-import 'package:decidable/ui/views/loginPage.dart';
 import 'package:decidable/ui/views/registerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
